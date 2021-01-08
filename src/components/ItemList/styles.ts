@@ -9,7 +9,7 @@ interface ITagProps {
 }
 
 export const Container = styled.li<IContainerProps>`
-    background-color: ${props => props.color};
+    background-color: ${props => props.theme.colors.tertiary};
     list-style: none;
     border-radius: 5px;
     margin: 10px 0;
@@ -24,7 +24,7 @@ export const Container = styled.li<IContainerProps>`
 
     &:hover {
         opacity: .7;
-        transform: translate(10px);
+        transform: translateX(10px);
     }
 
     > div {
