@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import SelectInput from '../../components/SelectInput';
 import ContentHeader from '../../components/ContentHeader';
@@ -6,6 +6,9 @@ import ContentHeader from '../../components/ContentHeader';
 import ItemList from '../../components/ItemList';
 
 import { Container, Content, Filters } from './styles';
+
+import expenses from '../../repositories/expenses';
+import gains from '../../repositories/gains';
 
 interface IRouteParams {
     match: {
@@ -15,7 +18,18 @@ interface IRouteParams {
     }
 }
 
+interface IData {
+    id: string
+    description: string;
+    amountFormatted: string;
+    frequency: string;
+    dataFormatted: string;
+    tagColor: string;
+}
+
 const List: React.FC<IRouteParams> = ({ match }) => {
+    const [data, setData] = useState<IData[]>([]);
+
     const { type } = match.params;
 
     const title = useMemo(() => {
@@ -26,6 +40,10 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         return type === 'teachers' ? '#F7931B' : '#E44C4E';
     }, [type]);
     
+    const listData = useMemo(() => {
+        return type === 'teachers' ? gains : expenses;
+    }, [type]);
+
     const months = [
         {value: 7, label: 'Julho'},
         {value: 8, label: 'Agosto'},
@@ -37,6 +55,21 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         {value: 2019, label: 2019},
         {value: 2018, label: 2018},
     ];
+
+    useEffect(() => {
+        const response = listData.map(item => {
+            return {
+                id: String(Math.random() * data.length),
+                description: item.description,
+                amountFormatted: item.amount,
+                frequency: item.frequency,
+                dataFormatted: item.date,
+                tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
+            }
+        });
+
+        setData(response);
+    }, []);
 
     return (
         <Container>
@@ -51,13 +84,17 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             </Filters>
             
             <Content>
-                <ItemList
-                    cardColor="#313862"
-                    tagColor="#FFF"
-                    title="Título"
-                    subtitle="Subtítulo"
-                    amount="none"
-                />
+                {
+                    data.map(item => (
+                        <ItemList
+                            key={item.id}
+                            tagColor={item.tagColor}
+                            title={item.description}
+                            subtitle={item.dataFormatted}
+                            amount={item.amountFormatted}
+                        />
+                    ))
+                }
             </Content>
         </Container>
     );
