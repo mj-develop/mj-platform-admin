@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
                     Professores
                 </MenuItemLink>
 
-                <MenuItemLink href="/list/students">
+                <MenuItemLink href="/students">
                     <MdArrowDownward/>
                     Alunos
                 </MenuItemLink>
