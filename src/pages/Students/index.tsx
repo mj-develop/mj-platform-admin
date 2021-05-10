@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { Form } from '@unform/web';
-import { SubmitHandler, FormHandles, Scope }  from '@unform/core';
+import { FormHandles, Scope }  from '@unform/core';
 import ContentHeader from '../../components/ContentHeader';
-import { Container } from './styles';
+// import { Container_CS } from './styles';
 import * as Yup from 'yup';
+import Button from 'react-bootstrap/Button';
+import {Container, Row, FormLabel} from 'react-bootstrap';
 
 import Input from '../../components/Form/Input'
 
@@ -50,12 +52,12 @@ const Students: React.FC = () => {
         }
     }
 
-    const initialData = {
-        email: 'tos@icomp.ufam.edu.br',
-        address: {
-            city: "Manaus"
-        }
-    }
+    // const initialData = {
+    //     email: 'tos@icomp.ufam.edu.br',
+    //     address: {
+    //         city: "Manaus"
+    //     }
+    // }
 
     useEffect(() => {
         setTimeout(() => {
@@ -71,19 +73,45 @@ const Students: React.FC = () => {
 
     return (
         <Container>
+            <Row>
+                
+            </Row>
             <ContentHeader title="Cadastro de Alunos" lineColor="#FFF"> 
             </ContentHeader>
 
             <Form ref={formRef} onSubmit={handleSubmit}>
-                <Input name="name"> </Input>
-                <Input name="social_name"> </Input>
-                <Input name="email"> </Input>
-                <Input name="register"> </Input>
-                <Input name="birth"> </Input>
-                <Input name="gender"> </Input>
-                <Input name="marital"> </Input>
-                <Input name="username"> </Input>
-                <Input name="password"> </Input>
+                <Row>
+                    <FormLabel>Nome:</FormLabel>
+                    <Input name="name"> </Input>
+                    <FormLabel>Nome Social:</FormLabel>
+                    <Input name="social_name"> </Input>
+                </Row>
+                    
+                <Row>
+                    <FormLabel>Email:</FormLabel>
+                    <Input name="email"> </Input>
+                    <FormLabel>Telefone:</FormLabel>
+                    <Input name="phone"> </Input>
+                    <FormLabel>Matrícula:</FormLabel>
+                    <Input name="register"> </Input>
+                    
+                </Row>
+
+                <Row>
+                    <FormLabel>Data de nascimento:</FormLabel>
+                    <Input name="birth"> </Input>
+                    <FormLabel>Gênero:</FormLabel>
+                    <Input name="gender"> </Input>
+                    <FormLabel>Estado Civil:</FormLabel>
+                    <Input name="marital"> </Input>
+                </Row>
+
+                <Row>
+                    <FormLabel>Username:</FormLabel>
+                    <Input name="username"> </Input>
+                    <FormLabel>Senha:</FormLabel>
+                    <Input name="password"> </Input>
+                </Row>
 
                 <Scope path="address">
                     <Input name="number"> </Input>
@@ -95,7 +123,7 @@ const Students: React.FC = () => {
                     <Input name="street"> </Input>
                 </Scope>
 
-                <button type="submit">Enviar</button>
+                <Button variant="primary" type="submit"> Enviar </Button> {' '}
             </Form>
         </Container>
     );

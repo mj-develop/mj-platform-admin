@@ -7,6 +7,9 @@ import Routes from '../src/routes';
 import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 const App: React.FC = () => {
     return (
         <ThemeProvider theme={dark}>
